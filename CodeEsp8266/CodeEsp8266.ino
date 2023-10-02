@@ -105,8 +105,6 @@ void loop() {
   }
 
   Firebase.setBool(firebaseData, "/Sensor1/WebRead/isOn", isOn);////test
-  Serial.print("isOn: ");
-  Serial.println(isOn);
   delay(100);
 
   Firebase.getBool(booleanData, "/Sensor1/ArduinoRead/isOn");
@@ -115,8 +113,6 @@ void loop() {
   } else {
     digitalWrite(checkOnOff, HIGH);
   }
-  Serial.print("isOnfromWeb: ");
-  Serial.println(booleanData.boolData());
   delay(100);
 }
 
@@ -124,16 +120,13 @@ float measureThePower() {
   float I_temp, tong, I_TB, mA, power;
   for (int i=0; i<=100; i++)
   {
-    I_temp = sensor.getCurrentAC(); //Đo dòng AC
-    //Serial.print("I = "); Serial.print(I); Serial.print("   ");
+    I_temp = sensor.getCurrentAC();
     tong = tong + I_temp;
     
     delay(5);
   }
   I_TB = tong/100;
   tong = 0;
-  Serial.print("Tổng = "); Serial.println(I_TB);
-  //Serial.print("\t\t\t");
   power = I_TB * 220;
   return power;
 }
